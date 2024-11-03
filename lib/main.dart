@@ -1,12 +1,10 @@
-import 'package:doctorplant_v2/firebase_options.dart';
-import 'package:doctorplant_v2/screens/HomeScreen/HomeScreen.dart';
-import 'package:doctorplant_v2/screens/OnboardScreen/onboardscreen.dart';
-import 'package:doctorplant_v2/theme.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'onboardscreen/onboardscreen.dart';
+import 'theme.dart';
 
 // Variables to store the data of the user
 // isViewed is used to check if the user has viewed the application before or not
