@@ -8,9 +8,12 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../homescreen/homescreen.dart';
 import '../userAuthcontrollers/userauthcontroller.dart';
+import 'components/common_button/centerNextSignIn';
+import 'components/common_button/skipbutton.dart';
 import 'components/cropcalendar.dart';
 import 'components/imageprocessing.dart';
 import 'components/initscreen.dart';
+import 'components/welcome.dart';
 
 class Onboardscreen extends StatefulWidget {
   static String routeName = "/splash";
