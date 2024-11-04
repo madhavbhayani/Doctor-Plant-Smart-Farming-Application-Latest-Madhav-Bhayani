@@ -6,7 +6,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../homescreen/homescreen.dart';
+import '../userAuthcontrollers/userauthcontroller.dart';
 import 'components/cropcalendar.dart';
+import 'components/imageprocessing.dart';
+import 'components/initscreen.dart';
 
 class Onboardscreen extends StatefulWidget {
   static String routeName = "/splash";
