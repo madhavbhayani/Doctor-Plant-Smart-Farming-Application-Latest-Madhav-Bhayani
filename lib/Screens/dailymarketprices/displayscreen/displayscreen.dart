@@ -156,11 +156,11 @@ class _DailyMarketPricesState extends State<DailyMarketPrices> {
                                           padding: const EdgeInsets.all(2.5),
                                           child: CircleAvatar(
                                             backgroundColor: Colors.white,
-                                            backgroundImage: NetworkImage(
-                                              _imagefetcher(_commodity[
-                                                      index] // Function to fetch the image of the commodity
-                                                  ['commodity']),
-                                            ),
+                                            // backgroundImage: NetworkImage(
+                                            //   _imagefetcher(_commodity[
+                                            //           index] // Function to fetch the image of the commodity
+                                            //       ['commodity']),
+                                            // ),
                                           ),
                                         ),
                                       ),
