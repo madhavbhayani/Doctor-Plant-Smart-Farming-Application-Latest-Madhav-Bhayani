@@ -1,5 +1,5 @@
 // ignore_for_file: avoid_print, file_names
-import 'dart:convert';\
+import 'dart:convert';
 import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
@@ -9,6 +9,8 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:emojis/emojis.dart';
 
+import '../Screens/ai_instruction/Instruction_UI/GalleryScreen.dart';
+import '../Screens/ai_instruction/Instruction_UI/ImageScreen.dart';
 import '../Screens/cropcalendar/cropcalendarscreen.dart';
 import '../Screens/dailymarketprices/displayscreen/displayscreen.dart';
 class Homescreen extends StatefulWidget {
