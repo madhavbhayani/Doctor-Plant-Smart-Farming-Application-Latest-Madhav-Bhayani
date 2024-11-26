@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'homescreen/homescreen.dart';
-import 'onboardscreen/onboardscreen.dart';
+import 'Screens/homescreen/homescreen.dart';
+import 'Screens/onboardscreen/onboardscreen.dart';
 import 'theme.dart';
 
 // Variables to store the data of the user

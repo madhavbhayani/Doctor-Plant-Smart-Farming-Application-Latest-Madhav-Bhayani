@@ -9,10 +9,10 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:emojis/emojis.dart';
 
-import '../Screens/ai_instruction/Instruction_UI/GalleryScreen.dart';
-import '../Screens/ai_instruction/Instruction_UI/ImageScreen.dart';
-import '../Screens/cropcalendar/cropcalendarscreen.dart';
-import '../Screens/dailymarketprices/displayscreen/displayscreen.dart';
+import '../ai_instruction/Instruction_UI/GalleryScreen.dart';
+import '../ai_instruction/Instruction_UI/ImageScreen.dart';
+import '../cropcalendar/cropcalendarscreen.dart';
+import '../dailymarketprices/displayscreen/displayscreen.dart';
 class Homescreen extends StatefulWidget {
   final String? displayName;
   const Homescreen(this.displayName, {super.key});

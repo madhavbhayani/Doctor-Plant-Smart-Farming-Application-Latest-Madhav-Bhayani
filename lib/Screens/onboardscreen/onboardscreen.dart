@@ -1,13 +1,13 @@
 // ignore_for_file: avoid_print, use_build_context_synchronously
 
 
-import 'package:doctorplant_v2/onboardscreen/components/dailymarketprices.dart';
+import 'package:doctorplant_v2/Screens/onboardscreen/components/dailymarketprices.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../homescreen/homescreen.dart';
-import '../userAuthcontrollers/userauthcontroller.dart';
+import '../../userAuthcontrollers/userauthcontroller.dart';
 import 'components/common_button/centerNextSignIn';
 import 'components/common_button/skipbutton.dart';
 import 'components/cropcalendar.dart';
