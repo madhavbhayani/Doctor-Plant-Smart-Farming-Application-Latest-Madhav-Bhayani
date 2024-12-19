@@ -1,17 +1,19 @@
+
+import 'package:doctorplant_v2/screens/HomeScreen/HomeScreen.dart';
+import 'package:doctorplant_v2/screens/OnboardScreen/onboardscreen.dart';
+import 'package:doctorplant_v2/theme.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'Screens/homescreen/homescreen.dart';
-import 'Screens/onboardscreen/onboardscreen.dart';
-import 'theme.dart';
 
 // Variables to store the data of the user
 // isViewed is used to check if the user has viewed the application before or not
 // displayName is used to store the name of the user
 int? isViewed;
 String? displayName;
+String? photoUrl;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -31,6 +33,7 @@ void main() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
   isViewed = prefs.getInt("splashscrn");
   displayName = prefs.getString("displayName");
+  photoUrl = prefs.getString("photoUrl");
 
   runApp(const DoctorPlant());
 }
@@ -59,7 +62,9 @@ class _DoctorPlantState extends State<DoctorPlant> {
           // Home screen of the application
           // If the user is viewing the application for the first time, the OnboardScreen will be displayed
           // If the user has already viewed the application, the HomeScreen will be displayed
-          home: isViewed == 0 ? Homescreen(displayName) : Onboardscreen(),
+          home: isViewed == 0
+              ? Homescreen(displayName, photoUrl)
+              : const OnboardScreen(),
         );
       },
     );

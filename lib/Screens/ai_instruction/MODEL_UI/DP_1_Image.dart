@@ -1,11 +1,13 @@
-import 'dart:io';
+// ignore_for_file: prefer_const_declarations, prefer_interpolation_to_compose_strings
 
+import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
 Future<Map<String, dynamic>> fetchRoboflowResult(File imageFile) async {
+
   final apiKey = 'API_KEY'; // Replace with your Roboflow API key
   final dataset = 'doctorplant/2';
   final url = 'https://detect.roboflow.com/' + dataset + '?api_key=' + apiKey;

@@ -1,5 +1,7 @@
 // ignore_for_file: avoid_print, file_names
+
 import 'dart:convert';
+
 import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
@@ -7,15 +9,17 @@ import 'package:iconsax/iconsax.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import 'package:emojis/emojis.dart';
 
-import '../ai_instruction/Instruction_UI/GalleryScreen.dart';
+
 import '../ai_instruction/Instruction_UI/ImageScreen.dart';
+
 import '../cropcalendar/cropcalendarscreen.dart';
 import '../dailymarketprices/displayscreen/displayscreen.dart';
+
 class Homescreen extends StatefulWidget {
   final String? displayName;
-  const Homescreen(this.displayName, {super.key});
+  final String? photoUrl;
+  const Homescreen(this.displayName, this.photoUrl, {super.key});
 
   @override
   State<Homescreen> createState() => _HomescreenState();
@@ -24,13 +28,14 @@ class Homescreen extends StatefulWidget {
 class _HomescreenState extends State<Homescreen> {
   int currentPageIndex = 0;
   get displayName => widget.displayName;
-  Future<MarketPrices>? _getMarketPricesData;
+  get photoUrl => widget.photoUrl;
+
   String? _stateSelectValue;
 
   @override
   void initState() {
     super.initState();
-    _checkPermissionsAndFetchMarketPrices();
+    // _checkPermissionsAndFetchMarketPrices();
   }
 
   Future<void> _showMyDialog() async {
@@ -74,7 +79,7 @@ class _HomescreenState extends State<Homescreen> {
       );
       //Fetch the state name using the latitude and longitude using geocoding api
       final geoUrl =
-          'https://geocode.maps.co/reverse?lat=${position.latitude}&lon=${position.longitude}&api_key=YOUR_API_KEY';
+          'https://geocode.maps.co/reverse?lat=${position.latitude}&lon=${position.longitude}&api_key=66ba3c65715f6286733836pke82ce0f';
 
       //TODO : Implement error handling concept here when the api fails to fetch the state name
       final geoResponse = await http.get(Uri.parse(geoUrl));
@@ -119,7 +124,7 @@ class _HomescreenState extends State<Homescreen> {
                     ),
                     Center(
                       // child: Image.network(
-                      //   'https://www.doctorplant.in/assets/logo.png',  
+                      //   'https://firebasestorage.googleapis.com/v0/b/doctorplant-674e6.appspot.com/o/logo.png?alt=media&token=83921e37-4f67-427e-938f-227aa2193522',
                       //   scale: 15,
                       // ),
                       child: Image.asset(
@@ -403,13 +408,13 @@ class _HomescreenState extends State<Homescreen> {
                                       elevation: 0,
                                       backgroundColor: Colors.white),
                                   onPressed: () {
-                                    Navigator.push(
-                                      context,
-                                      PageTransition(
-                                        type: PageTransitionType.rightToLeft,
-                                        child: const AIInstructionScrnGallery(),
-                                      ),
-                                    );
+                                    // Navigator.push(
+                                    //   context,
+                                    //   PageTransition(
+                                    //     type: PageTransitionType.rightToLeft,
+                                    //     child: const ReportScreen(),
+                                    //   ),
+                                    // );
                                   },
                                   child: const Text(
                                     "Choose From Gallery",
@@ -529,69 +534,9 @@ class _HomescreenState extends State<Homescreen> {
           ),
         ],
       ),
-      appBar: AppBar(
-        forceMaterialTransparency: true,
-        elevation: 0,
-        backgroundColor: Colors.white,
-        title: Row(
-          children: [
-            SizedBox(
-              height: 5.h,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "Hii ${displayName} ! ${Emojis.smilingFaceWithHalo}",
-                    style: const TextStyle(
-                        color: Colors.black,
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold),
-                  ),
-                  Text(
-                    "Enjoy Your Services",
-                    style: TextStyle(
-                        color: Colors.grey[700],
-                        fontSize: 10,
-                        fontWeight: FontWeight.normal),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-        leading: SafeArea(
-          child: Builder(
-            builder: (context) {
-              return SizedBox(
-                child: Row(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
-                      child: SizedBox(
-                        width: 10.w,
-                        child: DecoratedBox(
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: Colors.grey[200],
-                          ),
-                          child: IconButton(
-                            iconSize: 25,
-                            icon: const Icon(Icons.menu),
-                            onPressed: () {
-                              Scaffold.of(context).openDrawer();
-                            },
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              );
-            },
-          ),
-        ),
-      ),
+      // if currentpageindex is 0 then display the appbarHome() else display the appbarDailyMarketPrices()
+
+      appBar: currentPageIndex == 0 ? appBarHome() : appBarDailyMarketPrices(),
       drawer: Drawer(
         semanticLabel: 'Menu',
         elevation: 3,
@@ -605,10 +550,11 @@ class _HomescreenState extends State<Homescreen> {
             padding: EdgeInsets.zero,
             children: [
               DrawerHeader(
-                decoration: BoxDecoration(
-                  color: Colors.green[100],
+                padding: EdgeInsets.all(8),
+                child: Image.network(
+                  photoUrl!,
+                  fit: BoxFit.cover,
                 ),
-                child: const Text('Doctor Plant'),
               ),
               Column(
                 children: [
@@ -616,9 +562,12 @@ class _HomescreenState extends State<Homescreen> {
                     title: const Text('Settings'),
                     onTap: () {
                       // Update the state of the app
-
-                      // Then close the drawer
                       Navigator.pop(context);
+                      // Then close the drawer
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const Profile()));
                     },
                   ),
                 ],
@@ -646,6 +595,152 @@ class _HomescreenState extends State<Homescreen> {
         ),
       ),
       body: screens[currentPageIndex],
+    );
+  }
+
+  AppBar appBarHome() {
+    return AppBar(
+      forceMaterialTransparency: true,
+      elevation: 0,
+      backgroundColor: Colors.white,
+      title: Row(
+        children: [
+          SizedBox(
+            height: 5.h,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "Hii ${displayName} !",
+                  style: const TextStyle(
+                      color: Colors.black,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold),
+                ),
+                Text(
+                  "Enjoy Your Services",
+                  style: TextStyle(
+                      color: Colors.grey[700],
+                      fontSize: 10,
+                      fontWeight: FontWeight.normal),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+      leading: SafeArea(
+        child: Builder(
+          builder: (context) {
+            return SizedBox(
+              child: Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
+                    child: SizedBox(
+                      width: 10.w,
+                      child: DecoratedBox(
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Colors.grey[200],
+                        ),
+                        child: IconButton(
+                          iconSize: 25,
+                          icon: const Icon(Icons.menu),
+                          onPressed: () {
+                            Scaffold.of(context).openDrawer();
+                          },
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            );
+          },
+        ),
+      ),
+    );
+  }
+
+  AppBar appBarDailyMarketPrices() {
+    return AppBar(
+      actions: [
+        Builder(builder: (context) {
+          return IconButton(
+            onPressed: () {
+              // showSearch(
+              //     useRootNavigator: true,
+              //     context: context,
+              //     delegate: CustomSearchDelegate());
+              //TODO : Implement the search bar here
+            },
+            icon: const Icon(Icons.search),
+          );
+        })
+      ],
+      forceMaterialTransparency: true,
+      elevation: 0,
+      backgroundColor: Colors.white,
+      title: Row(
+        children: [
+          SizedBox(
+            height: 5.h,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "Hii ${displayName} !",
+                  style: const TextStyle(
+                      color: Colors.black,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold),
+                ),
+                Text(
+                  "Enjoy Your Services",
+                  style: TextStyle(
+                      color: Colors.grey[700],
+                      fontSize: 10,
+                      fontWeight: FontWeight.normal),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+      leading: SafeArea(
+        child: Builder(
+          builder: (context) {
+            return SizedBox(
+              child: Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
+                    child: SizedBox(
+                      width: 10.w,
+                      child: DecoratedBox(
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Colors.grey[200],
+                        ),
+                        child: IconButton(
+                          iconSize: 25,
+                          icon: const Icon(Icons.menu),
+                          onPressed: () {
+                            Scaffold.of(context).openDrawer();
+                          },
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            );
+          },
+        ),
+      ),
     );
   }
 }
